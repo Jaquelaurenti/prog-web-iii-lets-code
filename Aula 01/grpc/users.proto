@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+message Users {
+    string id = 1;
+    string nome = 2;
+    string idade = 3;
+    string avatar = 4;
+}
+
+service UsersService {
+    rpc GetAllUsers (Empty) returns (UsersList) {}
+    rpc GetUsers (UsersId) returns (Users) {}
+    rpc DeleteUsers (UsersId) returns (Empty) {}
+    rpc EditUsers (Users) returns (Users) {}
+    rpc AddUsers (Users) returns (Users) {}
+}
+
+message UsersId {
+    string id = 1;
+}
+
+message Empty {}
+
+message UsersList {
+   repeated Users users = 1;
+}
