@@ -1,3 +1,9 @@
+/*
+Criando a estrutura das ações da minha entidade
+
+*/
+
+
 const Profissao = [{
     id: 12,
     nome: "Jaque",
@@ -14,6 +20,7 @@ const Profissao = [{
     _doc: 11111
 }]
 
+// comentando apenas pq deixei chumbado poderia vir da models
 //require('../../models/profissao');
 
 module.exports = {
@@ -34,9 +41,6 @@ module.exports = {
     },
 
     createProfissao: async (args, req) => {
-        //if (!req.isAuth) {
-        //    throw new Error ('Unauthenticated!');
-        //}
         const prof = new Profissao({
             nome: args.profissaoInput.nome,
         });
@@ -56,9 +60,6 @@ module.exports = {
     },
 
     updateProfissao: async (args, req) => {
-        //if (!req.isAuth) {
-        //    throw new Error ('Unauthenticated!');
-        //}
 
         const filter = { _id: args.profId };
         const update = { nome: args.profissaoInput.nome };
