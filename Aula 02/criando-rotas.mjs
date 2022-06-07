@@ -14,7 +14,7 @@ const servidor = http.createServer((req, res) => {
   }
 });
 
-
 servidor.listen(porta, ip, () =>{
-  console.log(`Servidor rodando em: ${ip} ${porta}`)
-})
+  console.log(`Servidor rodando em: ${ip}/${porta}`)
+});
+ 
