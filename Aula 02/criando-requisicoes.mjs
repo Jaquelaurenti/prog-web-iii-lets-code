@@ -6,7 +6,6 @@ const opcao = {
   hostname: 'about.google', // URI BASE QUE EU QUERO FAZER A REQUISIÇÃO
   port: 443, // porta padrão para requisições https, porta 80 http
   path: '/stories/', // rota de acesso após o hostname
-  path: '/stories/', // rota de acesso após o hostname
   method: 'GET'
 };
 
