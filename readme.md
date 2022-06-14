@@ -33,16 +33,18 @@ No arquivo #package.json, insira a seguinte informação:
 ```
 npm run dev
 ```
-Agora sua aplicação esterá disponpivel com o nodemonm e sempre que salvar um arquivo, não precisará mais subir o servidor para a aplicação refletir.
+Agora sua aplicação estará disponpivel com o nodemonm e sempre que salvar um arquivo, não precisará mais subir o servidor para a aplicação refletir.
 
 ### mongoose
 ```
 npm i mongoose
+essa biblioteca irá nos auxiliar ao uso do mongo
 ```
 
 ### requireDir
 ```
 npm i require-dir
+essa biblioteca irá nos ajudar a juntar os arquivos da pasta informada no parâmetro
 ```
 
 
@@ -51,7 +53,7 @@ Após criar o passo a passo acima, estamos prontos para começar criar nossas pa
 ## Criando as pastas
 
 [x] src
-    - Responsável por armazenar TODA a estrutura base da nossa aplicação
+- Responsável por armazenar TODA a estrutura base da nossa aplicação
 
 #### Dentro da pasta src criar as pastas abaixo
 [x] controllers
@@ -76,7 +78,7 @@ Após criar o passo a passo acima, estamos prontos para começar criar nossas pa
 [x] services
 - Responsável por toda a camada de negócio da aplicação.
 -  Aqui ficará toda a regra de negócio, tratativa de erros.
--
+
 
 
 Após criar as pastas acima e ainda dentro de src, criar os arquivos
