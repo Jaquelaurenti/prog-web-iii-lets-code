@@ -8,9 +8,8 @@ const postUsuario = async (req, res) => {
 
 }
 const getUsers = async (req, res) => {
-  console.log(req)
-  const users = await userService.getUsers();
-  return res.status(200).json(users);
+  const response = await userService.getUsers();
+  return res.status(response.statusCode).json(response.data);
 
 }
 

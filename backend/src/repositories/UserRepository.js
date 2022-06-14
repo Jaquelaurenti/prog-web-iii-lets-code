@@ -13,7 +13,6 @@ const getUsers = async () => {
 const getUserByTelephoneAndPassword = async (telephone, password) => {
   return await User.findOne({ telephone: telephone }, { password: password });
 
-  return await User.findById()
 }
 
 // deixando os métodos disponíveis para uso

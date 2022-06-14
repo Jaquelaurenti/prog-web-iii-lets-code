@@ -1,5 +1,5 @@
 const userRepository = require('../repositories/UserRepository');
-const { use } = require('../routers/User.Routes');
+
 // trabalhando com um Objeto de retorno padrão
 // statusCode (que vai armazenar o status da minha requisição)
 // data (pode ser um objeto, mensagem)
@@ -39,6 +39,19 @@ const createUser = async (user) => {
 }
 
 const getUsers = async () => {
+  try {
+    const data = await userRepository.getUsers();
+    return {
+      statusCode: 200,
+      data: data
+    }
+  }
+  catch (error) {
+    return {
+      statusCode: 500,
+      data: error.message
+    }
+  }
 }
 
 const getUserByTelephoneAndPassword = async (telephone, password) => {
