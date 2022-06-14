@@ -3,10 +3,8 @@ const userService = require('../services/UserService');
 
 const postUsuario = async (req, res) => {
   const payload = req.body;
-  const token = req.headers['x-api-key'];
-  console.log(token)
-  const user = await userService.createUser(payload);
-  return res.status(200).json(user);
+  const response = await userService.createUser(payload);
+  return res.status(response.statusCode).json(response.data);
 
 }
 const getUsers = async (req, res) => {
