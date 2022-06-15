@@ -42,6 +42,34 @@ const createVehicleService = async (payload) => {
   }
 }
 
+const getVehiclesService = async () => {
+  try {
+    // caso não encontre nenhum veículo retornar mensagem de erro
+    const vehicles = await vehicleRepository.getVehicle();
+    if (!vehicles) {
+      return {
+        statusCode: 402,
+        data: 'Nenhum veículo encontrado'
+      }
+    }
+    return {
+      statusCode: 200,
+      data: vehicles
+    }
+
+  }
+  catch (error) {
+    // erros que acontece durante a execução e a aplicação não consegue prever
+    return {
+      // tratar esse erro na camada 4
+      statusCode: 500,
+      data: error.message
+    }
+  }
+
+}
+
+
 module.exports = {
-  createVehicleService,
+  createVehicleService, getVehiclesService
 }

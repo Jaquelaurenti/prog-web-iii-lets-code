@@ -12,6 +12,10 @@ const vehicleByLicensePlate = async (plate) => {
   return response;
 }
 
+const getVehicle = async () => {
+  return await Vehicle.find();
+}
+
 module.exports = {
-  createVehicle, vehicleByLicensePlate
+  createVehicle, vehicleByLicensePlate, getVehicle
 }

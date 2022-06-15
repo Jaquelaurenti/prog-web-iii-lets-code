@@ -6,6 +6,12 @@ const createVehicle = async (req, res) => {
   return res.status(response.statusCode).json(response.data);
 }
 
+const getVehicles = async (req, res) => {
+  const response = await vehicleService.getVehiclesService();
+  return res.status(response.statusCode).json(response.data);
+}
+
+
 module.exports = {
-  createVehicle,
+  createVehicle, getVehicles
 }
