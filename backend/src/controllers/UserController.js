@@ -1,4 +1,3 @@
-const { param } = require('../routers/User.Routes');
 const userService = require('../services/UserService');
 
 const postUsuario = async (req, res) => {
@@ -14,10 +13,9 @@ const getUsers = async (req, res) => {
 }
 
 const getUserByTelephoneAndPassword = async (req, res) => {
-  const { password, telephone } = req.headers;
-
-  const user = await userService.getUserByTelephoneAndPassword(telephone, password);
-  return res.status(200).json(user);
+  const { telephone, password } = req.params;
+  const response = await userService.getUserByTelephoneAndPassword(telephone, password);
+  return res.status(response.statusCode).json(response.data);
 }
 
 module.exports = {

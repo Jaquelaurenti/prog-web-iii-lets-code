@@ -11,9 +11,10 @@ const getUsers = async () => {
 }
 
 const getUserByTelephoneAndPassword = async (telephone, password) => {
-  return await User.findOne({ telephone: telephone }, { password: password });
-
+  const response = await User.findOne({ telephone: telephone, password: password });
+  return response;
 }
+
 
 // deixando os métodos disponíveis para uso
 module.exports = {

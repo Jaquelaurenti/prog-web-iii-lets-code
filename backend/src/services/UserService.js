@@ -40,6 +40,7 @@ const createUser = async (user) => {
 
 const getUsers = async () => {
   try {
+    console.log(user)
     const data = await userRepository.getUsers();
     return {
       statusCode: 200,
@@ -55,6 +56,30 @@ const getUsers = async () => {
 }
 
 const getUserByTelephoneAndPassword = async (telephone, password) => {
+  try {
+    const user = await userRepository.getUserByTelephoneAndPassword(telephone, password);
+    if (user) {
+      return {
+        statusCode: 200,
+        data: user
+      }
+    }
+    else {
+      return {
+        statusCode: 404,
+        data: { message: 'Usuário não encontrado.' }
+      }
+    }
+  }
+  catch (error) {
+    return {
+      statusCode: 500,
+      data: {
+        message: 'Não foi possível obter o usuário.',
+        error: error.message
+      }
+    }
+  }
 }
 
 
