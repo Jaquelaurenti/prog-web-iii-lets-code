@@ -1,6 +1,6 @@
 # Instalando e rodando o projeto
 
-Dentro da pasta GRPC
+Dentro da pasta graphQL
 Abra o terminal integrado do VS Code e rode o comando:
 
 ```
@@ -11,9 +11,10 @@ Esse comando irá subir todas as dependências do seu projeto
 
 # Rodando a aplicação
 ```
-node server.js
+npm run start
 ```
 # Resultado esperado
 
-A api ficará disponível para uso na porta 50051
-http://127.0.0.1:50051
+Servidor conectado na porta :8000
+GraphQL: http://localhost:8000/graphql
+Playground: http://localhost:8000/playground

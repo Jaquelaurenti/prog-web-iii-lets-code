@@ -1,6 +1,6 @@
 # Instalando e rodando o projeto
 
-Dentro da pasta GRPC
+Dentro da pasta SOAP
 Abra o terminal integrado do VS Code e rode o comando:
 
 ```
@@ -11,9 +11,8 @@ Esse comando irá subir todas as dependências do seu projeto
 
 # Rodando a aplicação
 ```
-node server.js
+node index.js
 ```
 # Resultado esperado
 
-A api ficará disponível para uso na porta 50051
-http://127.0.0.1:50051
+Verificar o arquivo XML que irá ser gerado no console.log
