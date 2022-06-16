@@ -40,7 +40,6 @@ const createUser = async (user) => {
 
 const getUsers = async () => {
   try {
-    console.log(user)
     const data = await userRepository.getUsers();
     return {
       statusCode: 200,
