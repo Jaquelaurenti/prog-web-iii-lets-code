@@ -1,4 +1,4 @@
-const vehicleRepository = require('../repositories/VehicleRepository');
+const vehicleRepository = require('../repositories/vehicleRepository');
 
 const createVehicleService = async (payload) => {
   // tratamento de erros
@@ -16,7 +16,7 @@ const createVehicleService = async (payload) => {
       }
     }
     // verificar se o veículo já existe na base caso exista retornar uma mensagem informando que o veículo já existe na base de dados
-    const findVehicle = await vehicleRepository.vehicleByLicensePlate(licensePlate);
+    const findVehicle = await vehicleRepository.getVehicleByLicensePlate(licensePlate);
     if (findVehicle) {
       return {
         // tratar esse erro na camada 4

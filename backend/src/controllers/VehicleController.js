@@ -1,4 +1,4 @@
-const vehicleService = require('../services/VehicleService');
+const vehicleService = require('../services/vehicleService');
 
 const createVehicle = async (req, res) => {
   const body = req.body;

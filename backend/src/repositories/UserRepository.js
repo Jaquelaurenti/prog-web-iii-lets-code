@@ -1,13 +1,18 @@
-// fazendo o uso da tabela de Usuario através do mongoose
+// Instanciando o mongo para trabalhar com a entidade
+// Camada de repository é responsável somente por transacionar o banco de dados.
+
+
 const mongoose = require('mongoose');
-const User = mongoose.model('User'); // acessando a tabela de usuario
+const User = mongoose.model('User');
 
 const createUser = async (user) => {
-  return await User.create(user);
+  const response = await User.create(user);
+  return response;
 }
 
 const getUsers = async () => {
-  return await User.find();
+  const response = await User.find({});
+  return response;
 }
 
 const getUserByTelephoneAndPassword = async (telephone, password) => {
@@ -15,9 +20,14 @@ const getUserByTelephoneAndPassword = async (telephone, password) => {
   return response;
 }
 
-
-// deixando os métodos disponíveis para uso
-module.exports = {
-  createUser, getUsers, getUserByTelephoneAndPassword
+const getUserByEmail = async (email) => {
+  const response = await User.findOne({ email: email });
+  return response;
 }
 
+module.exports = {
+  createUser,
+  getUsers,
+  getUserByTelephoneAndPassword,
+  getUserByEmail
+}

@@ -1,21 +1,28 @@
-// fazendo o uso da tabela de Usuario através do mongoose
+// Instanciando o mongo para trabalhar com a entidade
+// Camada de repository é responsável somente por transacionar o banco de dados.
+
+
 const mongoose = require('mongoose');
-const Vehicle = mongoose.model('Vehicle'); // acessando a tabela de veículo
+const Vehicle = mongoose.model('Vehicle');
 
-
-const createVehicle = async (vehicle) => {
-  return await Vehicle.create(vehicle);
+const createVehicle = async (user) => {
+  const response = await Vehicle.create(user);
+  return response;
 }
 
-const vehicleByLicensePlate = async (plate) => {
+const getVehicles = async () => {
+  const response = await Vehicle.find({});
+  return response;
+}
+
+const getVehicleByLicensePlate = async (plate) => {
   const response = await Vehicle.findOne({ licensePlate: plate });
   return response;
 }
 
-const getVehicle = async () => {
-  return await Vehicle.find();
-}
 
 module.exports = {
-  createVehicle, vehicleByLicensePlate, getVehicle
+  createVehicle,
+  getVehicleByLicensePlate,
+  getVehicles
 }

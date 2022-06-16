@@ -1,32 +1,34 @@
 const mongoose = require('mongoose');
 
-// criando meu schema 
-// schema: vai ser a estrutura da minha tabela
+//  Criando o esquema do usuário
+//  O esquema é um objeto que define o formato dos dados que serão armazenados
+//  Ou seja, a estrutura da tabela no banco de dados
 
-const userSchema = mongoose.Schema({
-  name:{
+const userSchema = new mongoose.Schema({
+  name: {
     type: String,
     required: true
   },
   telephone: {
-    type: Number,
-    required: true,
+    type: String,
+    required: true
   },
   email: {
     type: String,
-    required: true,
+    required: true
   },
   password: {
     type: String,
-    required: true,
+    required: true
   },
   createdAt: {
     type: Date,
-    default: Date.now,
+    default: Date.now
   }
 });
 
-// Registrando o schema e atribuindo a uma tabela
-mongoose.model('User',userSchema);
-
-
+//  Registrando o esquema no mongoose
+//  O mongoose.model() recebe dois parâmetros:
+//  1. O nome do modelo
+//  2. O esquema do modelo
+mongoose.model('User', userSchema);

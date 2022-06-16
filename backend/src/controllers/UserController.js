@@ -1,15 +1,14 @@
-const userService = require('../services/UserService');
+const userService = require('../services/userService');
 
-const postUsuario = async (req, res) => {
-  const payload = req.body;
-  const response = await userService.createUser(payload);
+const postUser = async (req, res) => {
+  const { telephone, password, name, email } = req.headers;
+  const response = await userService.createUser(name, telephone, email, password);
   return res.status(response.statusCode).json(response.data);
-
 }
-const getUsers = async (req, res) => {
+
+const getUser = async (req, res) => {
   const response = await userService.getUsers();
   return res.status(response.statusCode).json(response.data);
-
 }
 
 const getUserByTelephoneAndPassword = async (req, res) => {
@@ -19,5 +18,7 @@ const getUserByTelephoneAndPassword = async (req, res) => {
 }
 
 module.exports = {
-  postUsuario, getUsers, getUserByTelephoneAndPassword
+  postUser,
+  getUser,
+  getUserByTelephoneAndPassword
 }

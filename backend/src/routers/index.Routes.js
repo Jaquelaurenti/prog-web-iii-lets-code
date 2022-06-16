@@ -1,8 +1,9 @@
-const userRouters = require('../routers/User.Routes');
-const vehicleRouters = require('../routers/Vehicle.Routes');
+const userRouters = require('./user.routes');
+const vehicleRouters = require('./vehicle.routes');
 const express = require('express');
-const routes = express.Router();
+const router = express.Router();
 
-routes.use('/user', userRouters);
-routes.use('/vehicle', vehicleRouters);
-module.exports = routes;
+router.use('/user', userRouters);
+router.use('/vehicle', vehicleRouters);
+
+module.exports = router;

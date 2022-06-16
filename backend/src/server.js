@@ -1,30 +1,28 @@
 const express = require('express');
-const mongoose = require('mongoose'); // irá nos apoiar a manipular o mongoDB
+const mongoose = require('mongoose');
 const requireDir = require('require-dir');
 
-// INICIANDO O SERVIDOR
+//  Iniciando o servidor
 const app = express();
 
-// determinar que o uso do JSON
+//  Determinar o uso de JSON
 app.use(express.json());
 
-// Conectar no bando de dados
+//  Conectando com o banco de dados
 mongoose.connect(
-  "mongodb+srv://jaquelaurenti:pljOqvAqFkIOQofD@melevaai.791smmp.mongodb.net/?retryWrites=true&w=majority",
+  'mongodb+srv://jaquelaurenti:pljOqvAqFkIOQofD@melevaai.791smmp.mongodb.net/?retryWrites=true&w=majority',
   {
     useNewUrlParser: true,
     useUnifiedTopology: true
   }
 );
 
-// Fazer a junção dos meus Schema de Banco de Dados
-requireDir('../src/models');
+//  Fazendo o require da pasta models
+requireDir('./models');
 
-// consumindo a rota
-app.use('/api', require('./routers/index.Routes'));
+//  Fazendo o require das rotas
+app.use('/api', require('./routers/index.routes'));
 
-console.log("Ouvindo na porta 3001")
+//  Iniciando o servidor
 app.listen(3001);
-
-
-
+console.log('Servidor rodando em http://localhost:3001');
