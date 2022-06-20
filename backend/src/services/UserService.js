@@ -17,7 +17,7 @@ const createUser = async (name, telephone, email, password) => {
 
   //  Depois da validação, verificar se o usuário já existe
   try {
-    const userExists = await userRepository.getUserByEmail(email);
+    const userExists = await userRepository.getUserByTelephone(telephone);
     if (userExists) {
       return {
         statusCode: 409,

@@ -45,7 +45,7 @@ const createVehicleService = async (payload) => {
 const getVehiclesService = async () => {
   try {
     // caso não encontre nenhum veículo retornar mensagem de erro
-    const vehicles = await vehicleRepository.getVehicle();
+    const vehicles = await vehicleRepository.getVehicles();
     if (!vehicles) {
       return {
         statusCode: 402,

@@ -25,9 +25,15 @@ const getUserByEmail = async (email) => {
   return response;
 }
 
+const getUserByTelephone = async (telephone) => {
+  const response = await User.findOne({ telephone: telephone });
+  return response;
+}
+
 module.exports = {
   createUser,
   getUsers,
   getUserByTelephoneAndPassword,
-  getUserByEmail
+  getUserByEmail,
+  getUserByTelephone
 }
