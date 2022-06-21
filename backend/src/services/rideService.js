@@ -16,6 +16,7 @@ const createRideService = async (payload) => {
       // verifico se o usuario informou o telephone
       if (user.telephone) {
         findUser = await userRepository.getUserByTelephone(user.telephone);
+        // VERIFICAR SE O USUÁRIO POSSUI ALGUMA CORRIDA CADASTRADA OU INICIADA, SE HOUVER NÃO DEIXAR CADASTRAR UMA NOVA CORRIDA
         if (!findUser) {
           return {
             statusCode: 402,
