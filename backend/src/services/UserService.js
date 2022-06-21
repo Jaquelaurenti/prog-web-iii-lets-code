@@ -1,4 +1,5 @@
 const userRepository = require('../repositories/userRepository');
+const jwt = require('jsonwebtoken');
 
 //  Trabalhando com um objeto de retorno padrão
 //  statusCode: armazena o código de status da requisição
@@ -90,17 +91,72 @@ const getUserByTelephoneAndPassword = async (telephone, password) => {
   catch (error) {
     return {
       statusCode: 500,
-      data: {
-        message: 'Não foi possível obter o usuário.',
-        error: error.message
-      }
+      data: error.message
     }
   }
+}
+
+const loginService = async (payload) => {
+  try {
+    // VERIFICAR SE O telephone e a senha foram informados no payload
+    if (!(payload.telephone && payload.password)) {
+      return {
+        statusCode: 400,
+        data: "Telefone ou Senha não informado"
+      }
+    }
+    // verificar se o telephone e a senha inserido existem na base de dados
+    const user = await userRepository.getUserByTelephoneAndPassword(payload.telephone, payload.password);
+
+    if (!user) {
+      return {
+        statusCode: 500,
+        data: "Usuário não encontrado"
+      }
+    }
+    const userData = {
+      telephone: user.telephone
+    }
+
+    // Autenticar o usuario na base através do JWT
+    const token = jwt.sign({ userData }, 'letsCode', {
+      expiresIn: 3000 // tempo de expiração do token;
+    });
+
+    // se a geração do token acontecer
+    if (token) {
+      const data = {
+        auth: true,
+        token: token,
+        user: userData,
+      }
+      return {
+        statusCode: 200,
+        data: data
+      }
+    }
+    else {
+      return {
+        statusCode: 500,
+        data: "Não foi possível gerar o token !"
+      }
+    }
+
+  }
+  catch {
+    return {
+      statusCode: 500,
+      data: error.message
+    }
+  }
+
 }
 
 //  Tornando as funções disponíveis para outros arquivos
 module.exports = {
   createUser,
   getUsers,
-  getUserByTelephoneAndPassword
+  getUserByTelephoneAndPassword,
+  loginService
+
 }

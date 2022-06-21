@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
-const { findDOMNode } = require('react-dom/cjs/react-dom.production.min');
 const Ride = mongoose.model('Ride');
-
 
 const createRide = async (ride) => {
   return await Ride.create(ride);
