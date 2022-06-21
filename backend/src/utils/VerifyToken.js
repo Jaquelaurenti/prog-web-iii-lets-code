@@ -7,9 +7,9 @@ module.exports = (req, res, next) => {
   // se o header não for encontradoß
   if (!token) return res.status(401).json({ auth: false, message: 'Não foi encontrado o header x-access-token' });
 
-  // no lugar do testeJaque podemos pegar do arquivo .env
+  // no lugar do letsCode podemos pegar do arquivo .env
   // aqui eu valido o conteúdo do que foi inserido no token
-  jwt.verify(token, 'testeJaque', function (err, decoded) {
+  jwt.verify(token, 'letsCode', function (err, decoded) {
     // função de callback para validar a verificação do token
     if (err) return res.status(500).json({ auth: false, message: 'Falha ao atenticar o Token' });
 
