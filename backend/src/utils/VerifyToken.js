@@ -1,37 +1,24 @@
-
-/**
- * // Esse arquivo ele vai ser responsável por validar todos os tokens recebidos na requisição
- */
-
 const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
+  // busca do header que será armazenado o token
+  const token = req.headers['x-access-token']; //  eu que determino o nome do token que será utilizado para armazenar a autorização
 
-  // primeira coisa a ser feita buscar o header onde o token está sendo armazenado
+  // se o header não for encontradoß
+  if (!token) return res.status(401).json({ auth: false, message: 'Não foi encontrado o header x-access-token' });
 
-  const token = req.headers['x-access-token']; // define onde o token deverá ser armazenado
+  // no lugar do testeJaque podemos pegar do arquivo .env
+  // aqui eu valido o conteúdo do que foi inserido no token
+  jwt.verify(token, 'testeJaque', function (err, decoded) {
+    // função de callback para validar a verificação do token
+    if (err) return res.status(500).json({ auth: false, message: 'Falha ao atenticar o Token' });
 
-  if (!token) {
-    return res.status(401).json({
-      auth: false,
-      message: "Não foi encontrado o header x-acess-token"
-    })
-  }
-
-  // se ele encontrou o header token
-  // preciso verificar o conteúdo do token
-
-  jwt.verify(token, 'letsCode',
-    function (err, decoded) {
-      if (err) {
-        return res.status(500).json({
-          auth: false, message: "Falha ao autenticar o Token"
-        });
-        // se tudo estiver ok com a verificação do meu token
-        console.log(decoded);
-        req.telphone = decoded.userData.telephone;
-        next();
-      }
-
-    })
+    // se tudo estiver ok, salva no request para uso posterior
+    console.log(decoded)
+    req.telephone = decoded.userData.telephone;
+    // Função de middleware para seguir após a finalização dessa função
+    // Seguir com a execução de quem acionou
+    next();
+  });
 }
+
