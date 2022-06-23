@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 module.exports = (req, res, next) => {
   // busca do header que será armazenado o token
@@ -9,7 +10,7 @@ module.exports = (req, res, next) => {
 
   // no lugar do letsCode podemos pegar do arquivo .env
   // aqui eu valido o conteúdo do que foi inserido no token
-  jwt.verify(token, 'letsCode', function (err, decoded) {
+  jwt.verify(token, process.env.SECRET_KEY, function (err, decoded) {
     // função de callback para validar a verificação do token
     if (err) return res.status(500).json({ auth: false, message: 'Falha ao atenticar o Token' });
 

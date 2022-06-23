@@ -1,5 +1,6 @@
 const userRepository = require('../repositories/userRepository');
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 //  Trabalhando com um objeto de retorno padrão
 //  statusCode: armazena o código de status da requisição
@@ -121,7 +122,7 @@ const loginService = async (payload) => {
 
     // Autenticar o usuario na base através do JWT
     // segundo parametro e a chave que gera o token
-    const token = jwt.sign({ userData }, 'letsCode', {
+    const token = jwt.sign({ userData }, process.env.SECRET_KEY, {
       expiresIn: 3000 // tempo de expiração do token;
     });
 

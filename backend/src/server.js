@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const requireDir = require('require-dir');
 const cors = require('cors');
+require('dotenv').config(); // utilizado para deixar disponível as varíaveis que estão no .env
 
 //  Iniciando o servidor
 const app = express();
@@ -14,7 +15,7 @@ app.use(cors());
 
 //  Conectando com o banco de dados
 mongoose.connect(
-  'mongodb+srv://jaquelaurenti:pljOqvAqFkIOQofD@melevaai.791smmp.mongodb.net/?retryWrites=true&w=majority',
+  process.env.MONGO_CONECTION,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true
