@@ -6,8 +6,7 @@ const createRideService = async (payload) => {
   try {
     // desestruturar o payload
     const { telephone, vehicle, startPlace, finishPlace, } = payload;
-    //const { telephone } = user;
-    // const { licensePlate } = vehicle;
+
     let ride = {};
 
     const findUser = await userRepository.getUserByTelephone(telephone);
@@ -18,6 +17,14 @@ const createRideService = async (payload) => {
         data: 'Usuário nao encontrado',
       }
     }
+
+    // LIÇÃO DE CASA
+    // AO INVÉS DE RECEBER O VEÍCULO COMO PARÂMETRO
+    // BUSCAR NO CADASTRO DE VEICULOS
+
+    // UM VEÍCULO QUE NÃO ESTEJA ASSOCIADO A NENHUMA CORRIDA CUJO STATUS SEJA IGUAL A STARTED
+
+    // PARA FUNCIONAR NO FRONT REMOVER O INPUT DE LICENSE PLATE
 
     // validando se o veículo existe
     // primeiro verifico se o objeto de veículo foi informado
