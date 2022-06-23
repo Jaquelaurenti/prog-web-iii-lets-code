@@ -125,7 +125,7 @@ const updateStatusRide = async (payload) => {
         }
 
       // situações para corridas do tipo stop
-      case 'stop':
+      case 'finish':
         if (ride.status === 'asked') {
           return {
             statusCode: 400,

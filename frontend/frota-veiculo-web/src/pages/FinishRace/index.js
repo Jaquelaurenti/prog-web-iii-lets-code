@@ -10,6 +10,7 @@ export default function FinishRace(props) {
 
   const history = useHistory();
 
+  // TODO A HORA DEVERÁ SER COMPATÍVEL COM O QUE VEM NO BACKEND
   const newHour = newHourRandom(new Date(2012, 0, 1));
 
   function newHourRandom(date) {

@@ -116,7 +116,7 @@ const loginService = async (payload) => {
     }
     const userData = {
       telephone: user.telephone,
-      teste: "turma836"
+      name: user.name,
     }
 
     // Autenticar o usuario na base através do JWT
