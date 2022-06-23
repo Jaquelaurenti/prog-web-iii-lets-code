@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.use('/user', userRouters);
 router.use('/vehicle', vehicleRouters);
-router.use('/ride', rideRouters);
+router.use('/rides', rideRouters);
 
 module.exports = router;

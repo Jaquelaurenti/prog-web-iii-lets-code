@@ -1,12 +1,16 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const requireDir = require('require-dir');
+const cors = require('cors');
 
 //  Iniciando o servidor
 const app = express();
 
 //  Determinar o uso de JSON
 app.use(express.json());
+
+// DETERMINANDO O USO DO CORS PARA SER CONSUMIDO PELO FRONT END
+app.use(cors());
 
 //  Conectando com o banco de dados
 mongoose.connect(

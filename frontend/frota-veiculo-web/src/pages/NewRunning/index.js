@@ -9,6 +9,7 @@ import api from '../../services/api'
 export default function NewRunning() {
   const [startPlace, setstartPlace] = useState('');
   const [finishPlace, setfinishPlace] = useState('');
+  const [licensePlate, setLicensePlate] = useState('');
   const telephone = localStorage.getItem('userPhone');
   const history = useHistory();
   async function handleNewIncident(event) {
@@ -20,7 +21,13 @@ export default function NewRunning() {
       telephone,
       startPlace,
       finishPlace,
+      'vehicle': {
+        licensePlate,
+      }
     };
+
+    console.log(data);
+
 
     try {
       const res = await api.post('rides', data,
@@ -36,7 +43,7 @@ export default function NewRunning() {
 
     } catch (err) {
       //alert('Erro ao solicitar corrida, tente novamente!')
-      alert(err.response.data.message);
+      alert(err.response.data);
     }
 
   }
@@ -65,6 +72,11 @@ export default function NewRunning() {
             placeholder="Destino"
             value={finishPlace}
             onChange={e => setfinishPlace(e.target.value)}
+          />
+          <input
+            placeholder="Placa do Carro"
+            value={licensePlate}
+            onChange={e => setLicensePlate(e.target.value)}
           />
 
           <button className="button" type="submit">Solicitar</button>

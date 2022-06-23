@@ -20,7 +20,12 @@ export default function Logon() {
         password
       };
 
+      console.log(data);
+
+
+      // consumindo a rota do backend
       const res = await api.post('user/login', data);
+      console.log(res);
 
       // Salvando alguns dados importantes no Storage da aplicação
       localStorage.setItem('userPhone', res.data.user.telephone);

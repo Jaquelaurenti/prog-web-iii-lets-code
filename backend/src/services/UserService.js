@@ -115,10 +115,12 @@ const loginService = async (payload) => {
       }
     }
     const userData = {
-      telephone: user.telephone
+      telephone: user.telephone,
+      teste: "turma836"
     }
 
     // Autenticar o usuario na base através do JWT
+    // segundo parametro e a chave que gera o token
     const token = jwt.sign({ userData }, 'letsCode', {
       expiresIn: 3000 // tempo de expiração do token;
     });

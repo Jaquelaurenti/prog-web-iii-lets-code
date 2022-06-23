@@ -5,34 +5,17 @@ const vehicleRepository = require('../repositories/vehicleRepository');
 const createRideService = async (payload) => {
   try {
     // desestruturar o payload
-    const { user, vehicle, startPlace, finishPlace, } = payload;
+    const { telephone, vehicle, startPlace, finishPlace, } = payload;
     //const { telephone } = user;
     // const { licensePlate } = vehicle;
     let ride = {};
-    let findUser;
 
-    // primeiro validar se o usuário existe
-    if (user) {
-      // verifico se o usuario informou o telephone
-      if (user.telephone) {
-        findUser = await userRepository.getUserByTelephone(user.telephone);
-        // VERIFICAR SE O USUÁRIO POSSUI ALGUMA CORRIDA CADASTRADA OU INICIADA, SE HOUVER NÃO DEIXAR CADASTRAR UMA NOVA CORRIDA
-        if (!findUser) {
-          return {
-            statusCode: 402,
-            data: "usuário não enconstrado"
-          }
-        }
-      } else {
-        return {
-          statusCode: 409,
-          data: "O telefone do usuário não foi informado!"
-        }
-      }
-    } else {
+    const findUser = await userRepository.getUserByTelephone(telephone);
+
+    if (!findUser) {
       return {
-        statusCode: 409,
-        data: "O usuário não foi informado!"
+        statusCode: 402,
+        data: 'Usuário nao encontrado',
       }
     }
 
@@ -98,6 +81,81 @@ const createRideService = async (payload) => {
   }
 }
 
+const updateStatusRide = async (payload) => {
+  try {
+    const { id, type } = payload;
+
+    const ride = await rideRepository.getRideById(id);
+
+    if (!ride) {
+      return {
+        statusCode: 402,
+        data: 'Corrida não encontrada',
+      }
+    }
+
+    // verificar o tipo de corrida que eu recebi
+    // e direcioná-lo para o método correto
+    switch (type) {
+      case 'start':
+        // situações para corridas do tipo start
+        if (ride.status === 'started') {
+          return {
+            statusCode: 400,
+            data: 'Corrida já foi iniciada!',
+          }
+        }
+        else if (ride.status === 'finished') {
+          return {
+            statusCode: 400,
+            data: 'Não é possível iniciar corrida já finaliza',
+          }
+        }
+        const dataStart = await rideRepository.startRide(ride);
+        return {
+          statusCode: 200,
+          data: dataStart
+        }
+
+      // situações para corridas do tipo stop
+      case 'stop':
+        if (ride.status === 'asked') {
+          return {
+            statusCode: 400,
+            data: 'Corrida não foi iniciada!',
+          }
+        }
+        else if (ride.status === 'finished') {
+          return {
+            statusCode: 400,
+            data: 'Corrida já foi finalizada!',
+          }
+        }
+        const dataStop = await rideRepository.stopRide(ride);
+        return {
+          statusCode: 200,
+          data: dataStop
+        }
+      default:
+        return {
+          statusCode: 500,
+          data: 'O tipo informado só pode ser start ou stop'
+        }
+    }
+
+
+
+  }
+  catch (error) {
+    return {
+      statusCode: 500,
+      data: error.message,
+    }
+  }
+
+
+}
+
 module.exports = {
-  createRideService,
+  createRideService, updateStatusRide
 }

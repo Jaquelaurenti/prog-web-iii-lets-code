@@ -7,6 +7,18 @@ const postRide = async (req, res) => {
   return res.status(response.statusCode).json(response.data);
 };
 
+const updateRide = async (req, res) => {
+  const id = req.params.id;
+  const { type } = req.body
+
+  const payload = {
+    id, type
+  }
+
+  const response = await rideService.updateStatusRide(payload);
+  return res.status(response.statusCode).json(response.data);
+};
+
 module.exports = {
-  postRide,
+  postRide, updateRide
 }
