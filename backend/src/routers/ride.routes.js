@@ -1,7 +1,7 @@
 const express = require('express');
 const routerRides = express.Router();
 const rideController = require('../controllers/rideController');
-const VerifyToken = require('../utils/VerifyToken');
+const VerifyToken = require('../middleware/VerifyToken');
 
 // o verify token precisa ser acionado nas rotas
 // routerRides.post('', verifyToken,rideController.postRide);

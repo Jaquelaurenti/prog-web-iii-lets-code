@@ -1,6 +1,8 @@
 const userRepository = require('../repositories/userRepository');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
+const security = require('../utils/securityPassword');
+const { hash } = require('bcryptjs');
 
 //  Trabalhando com um objeto de retorno padrão
 //  statusCode: armazena o código de status da requisição
@@ -36,7 +38,13 @@ const createUser = async (name, telephone, email, password) => {
 
   //  Se não existir, criar o usuário
   try {
-    const user = { name, telephone, email, password };
+    const hashPassword = security.encrypt(password);
+    const user = {
+      name,
+      telephone,
+      email,
+      password: hashPassword
+    };
     await userRepository.createUser(user);
     return {
       statusCode: 201,
@@ -99,15 +107,38 @@ const getUserByTelephoneAndPassword = async (telephone, password) => {
 
 const loginService = async (payload) => {
   try {
-    // VERIFICAR SE O telephone e a senha foram informados no payload
-    if (!(payload.telephone && payload.password)) {
+
+    // preciso antes de validar o telefone e a senha
+    // preciso encontrar o hash correspondente ao telefone informado
+
+    const { telephone, password } = payload;
+    if (!(telephone && password)) {
       return {
         statusCode: 400,
         data: "Telefone ou Senha não informado"
       }
     }
+    const findUser = await userRepository.getUserByTelephone(telephone);
+
+    if (!findUser) {
+      return {
+        statusCode: 400,
+        data: "usuário não existe na base de dados"
+      }
+    }
+
+    // preciso pegar a senha hash que foi salva no banco
+    // para fazer o compare
+    const hashPassword = findUser.password;
+    const verifyPasswordUser = security.verifyPassword(password, hashPassword);
+    if (!verifyPasswordUser) {
+      return {
+        statusCode: 500,
+        data: "Senha inválida!"
+      }
+    }
     // verificar se o telephone e a senha inserido existem na base de dados
-    const user = await userRepository.getUserByTelephoneAndPassword(payload.telephone, payload.password);
+    const user = await userRepository.getUserByTelephoneAndPassword(telephone, hashPassword);
 
     if (!user) {
       return {
@@ -119,7 +150,6 @@ const loginService = async (payload) => {
       telephone: user.telephone,
       name: user.name,
     }
-
     // Autenticar o usuario na base através do JWT
     // segundo parametro e a chave que gera o token
     const token = jwt.sign({ userData }, process.env.SECRET_KEY, {
