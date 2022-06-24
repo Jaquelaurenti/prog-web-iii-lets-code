@@ -163,6 +163,30 @@ const updateStatusRide = async (payload) => {
 
 }
 
+const getRidesByUser = async (telephone, page) => {
+  try {
+    const rides = await rideRepository.getRidesByTelephone(telephone, page);
+    if (!rides) {
+      return {
+        statusCode: 402,
+        data: 'Nenhuma corrida encontrada para o usuário!'
+      }
+    }
+    return {
+      statusCode: 200,
+      data: rides
+    }
+
+  }
+  catch (error) {
+    return {
+      statusCode: 500,
+      data: error.message,
+    }
+  }
+}
+
+
 module.exports = {
-  createRideService, updateStatusRide
+  createRideService, updateStatusRide, getRidesByUser
 }

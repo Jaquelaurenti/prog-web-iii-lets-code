@@ -19,6 +19,14 @@ const updateRide = async (req, res) => {
   return res.status(response.statusCode).json(response.data);
 };
 
+const getRidesByTelephone = async (req, res) => {
+  const { page = 1 } = req.query;
+  const telephone = req.params.telephone
+  const response = await rideService.getRidesByUser(telephone, page);
+  return res.status(response.statusCode).json(response.data);
+
+}
+
 module.exports = {
-  postRide, updateRide
+  postRide, updateRide, getRidesByTelephone
 }

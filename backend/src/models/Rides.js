@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate');
 
 //  Criando o esquema do usuário
 //  O esquema é um objeto que define o formato dos dados que serão armazenados
@@ -41,6 +42,8 @@ const rideSchema = new mongoose.Schema({
   }
 });
 
+
+rideSchema.plugin(mongoosePaginate)
 //  Registrando o esquema no mongoose
 //  O mongoose.model() recebe dois parâmetros:
 //  1. O nome do modelo

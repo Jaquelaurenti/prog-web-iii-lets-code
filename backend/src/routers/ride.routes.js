@@ -7,6 +7,6 @@ const VerifyToken = require('../utils/VerifyToken');
 // routerRides.post('', verifyToken,rideController.postRide);
 routerRides.post('', VerifyToken, rideController.postRide);
 routerRides.patch('/:id', VerifyToken, rideController.updateRide);
-
+routerRides.get('/users/:telephone', VerifyToken, rideController.getRidesByTelephone);
 
 module.exports = routerRides;

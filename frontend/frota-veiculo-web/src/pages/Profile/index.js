@@ -15,8 +15,11 @@ export default function Profile() {
 
   const history = useHistory();
   const token = localStorage.getItem('token');
+  console.log(page);
 
   useEffect(() => {
+    console.log('dentro do effect')
+    console.log(page);
     api.get('rides/users/' + userPhone + '?page=' + page,
       {
         headers: {

@@ -33,6 +33,11 @@ const getRideById = async (id) => {
 // validar o status de uma corrida por usuário
 // filtrar corridas de usuario por: asked ou started
 
+const getRidesByTelephone = async (telephone, page) => {
+  console.log(telephone)
+  return await Ride.paginate({ 'user.telephone': telephone }, { page, limit: 10 });
+}
+
 module.exports = {
-  createRide, startRide, stopRide, getRideById
+  createRide, startRide, stopRide, getRideById, getRidesByTelephone
 }
