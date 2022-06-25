@@ -30,10 +30,16 @@ const getUserByTelephone = async (telephone) => {
   return response;
 }
 
+const deleteUserById = async (userPhone) => {
+  //return await User.deleteOne({ telephone: userPhone });
+  return await User.findOneAndRemove({ telephone: userPhone });
+}
+
 module.exports = {
   createUser,
   getUsers,
   getUserByTelephoneAndPassword,
   getUserByEmail,
-  getUserByTelephone
+  getUserByTelephone,
+  deleteUserById
 }

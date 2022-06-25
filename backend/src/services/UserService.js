@@ -185,11 +185,32 @@ const loginService = async (payload) => {
 
 }
 
+const deleteUserService = async (telephone) => {
+  try {
+
+    const data = await userRepository.deleteUserById(telephone);
+
+    if (data) {
+      return {
+        statusCode: 200,
+        data: data
+      }
+    }
+
+  }
+  catch (error) {
+    return {
+      statusCode: 500,
+      data: error.message
+    }
+  }
+}
 //  Tornando as funções disponíveis para outros arquivos
 module.exports = {
   createUser,
   getUsers,
   getUserByTelephoneAndPassword,
-  loginService
+  loginService,
+  deleteUserService
 
 }
