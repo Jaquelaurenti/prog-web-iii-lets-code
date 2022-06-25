@@ -4,6 +4,10 @@ const requireDir = require('require-dir');
 const cors = require('cors');
 require('dotenv').config(); // utilizado para deixar disponível as varíaveis que estão no .env
 
+// consumindo o swagger
+const swaggerUI = require('swagger-ui-express');
+const swaggerFile = require('../swagger_output.json');
+
 //  Iniciando o servidor
 const app = express();
 
@@ -24,6 +28,9 @@ mongoose.connect(
 
 //  Fazendo o require da pasta models
 requireDir('./models');
+
+// ADD O SWAGGER EM UMA ROTA
+app.use("/doc", swaggerUI.serve, swaggerUI.setup(swaggerFile));
 
 //  Fazendo o require das rotas
 app.use('/api', require('./routers/index.routes'));

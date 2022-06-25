@@ -188,6 +188,7 @@ const loginService = async (payload) => {
 const deleteUserService = async (telephone) => {
   try {
 
+    // remover usuário que não esteja vinculado a uma corrida em andamento
     const data = await userRepository.deleteUserById(telephone);
 
     if (data) {
