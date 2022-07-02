@@ -1,40 +1,20 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const requireDir = require('require-dir');
-const cors = require('cors');
-require('dotenv').config(); // utilizado para deixar disponível as varíaveis que estão no .env
+const app = require('./app');
 
-// consumindo o swagger
-const swaggerUI = require('swagger-ui-express');
-const swaggerFile = require('../swagger_output.json');
+require("dotenv").config({
+  path: process.env.NODE_ENV === "test" ? ".env.test" : ".env"
+});
 
-//  Iniciando o servidor
-const app = express();
+const port = process.env.PORT;
 
-//  Determinar o uso de JSON
-app.use(express.json());
-
-// DETERMINANDO O USO DO CORS PARA SER CONSUMIDO PELO FRONT END
-app.use(cors());
-
-//  Conectando com o banco de dados
-mongoose.connect(
-  process.env.MONGO_CONECTION,
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
+const start = (port) => {
+  try {
+    app.listen(port, () => {
+      console.log(`Api rodando em: http://localhost:${port}`);
+    });
+  } catch (err) {
+    console.error(err);
+    process.exit();
   }
-);
+};
 
-//  Fazendo o require da pasta models
-requireDir('./models');
-
-// ADD O SWAGGER EM UMA ROTA
-app.use("/doc", swaggerUI.serve, swaggerUI.setup(swaggerFile));
-
-//  Fazendo o require das rotas
-app.use('/api', require('./routers/index.routes'));
-
-//  Iniciando o servidor
-app.listen(3001);
-console.log('Servidor rodando em http://localhost:3001');
+start(port);
