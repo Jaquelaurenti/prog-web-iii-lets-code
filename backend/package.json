@@ -4,7 +4,9 @@
   "description": "Aplicação final Backend simulador de corrida",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --force-exit",
+    "test:watch": "jest --watch",
+    "test:cov": "jest --coverage --force-exit",
     "dev": "nodemon --inspect src/server.js",
     "swagger-autogen": "node src/swagger.js"
   },
@@ -24,6 +26,7 @@
     "swagger-ui-express": "^4.4.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.16"
+    "nodemon": "^2.0.16",
+    "mockingoose": "^2.15.2"
   }
 }

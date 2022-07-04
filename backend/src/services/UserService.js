@@ -25,7 +25,7 @@ const createUser = async (name, telephone, email, password) => {
     if (userExists) {
       return {
         statusCode: 409,
-        data: { message: 'Usuário já cadastrado.' }
+        data: 'Usuário já cadastrado.'
       }
     }
   }
