@@ -1,32 +1,42 @@
 {
-  "name": "backend",
+  "name": "node-api",
   "version": "1.0.0",
-  "description": "Aplicação final Backend simulador de corrida",
-  "main": "index.js",
+  "description": "",
+  "main": "frota-veiculo-apis/server.js",
   "scripts": {
+    "dev": "nodemon --inspect frota-veiculo-apis/server.js",
+    "swagger-autogen": "node frota-veiculo-apis/swagger.js",
     "test": "jest --force-exit",
     "test:watch": "jest --watch",
-    "test:cov": "jest --coverage --force-exit",
-    "dev": "nodemon --inspect src/server.js",
-    "swagger-autogen": "node src/swagger.js"
+    "test:cov": "jest --coverage --force-exit"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@faker-js/faker": "^7.3.0",
     "bcryptjs": "^2.4.3",
-    "cor": "^0.0.0",
+    "chai": "^4.3.6",
+    "chai-http": "^4.3.0",
     "cors": "^2.8.5",
-    "express": "^4.18.1",
-    "jest": "^28.1.2",
+    "do": "^0.6.2",
+    "dotenv": "^16.0.1",
+    "dotenv-safe": "^8.2.0",
+    "express": "^4.17.1",
+    "factory-girl": "^5.0.4",
+    "faker": "^6.6.6",
+    "jest": "^28.1.1",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.3.6",
+    "mongoose": "^5.9.6",
     "mongoose-paginate": "^5.0.3",
     "require-dir": "^1.2.0",
+    "supertest": "^6.2.3",
     "swagger-autogen": "^2.21.3",
+    "swagger-jsdoc": "^4.0.0",
     "swagger-ui-express": "^4.4.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.16",
-    "mockingoose": "^2.15.2"
+    "mockingoose": "^2.15.2",
+    "nodemon": "^2.0.2"
   }
 }

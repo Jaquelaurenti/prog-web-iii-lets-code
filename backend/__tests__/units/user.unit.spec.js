@@ -1,7 +1,7 @@
-const userService = require('../../src/services/userService');
+const userService = require('../../frota-veiculo-apis/src/services/UserService');
 const mockingoose = require('mockingoose');
 
-const UserModel = require("../../src/models/User");
+const UserModel = require("../../frota-veiculo-apis/src/models/Users");
 
 afterEach(() => {
   jest.restoreAllMocks()
@@ -25,7 +25,7 @@ describe("Testes de Usuário", () => {
 
 
     // Nao printo o password por que ele é dinamico
-    const userResponse = await userService.createUser(userParam);
+    const userResponse = await userService.store(userParam);
     expect(userResponse.statusCode).toBe(201);
     expect(userResponse.data.name).toBe('Teste');
     expect(userResponse.data.email).toBe('teste@mail.com');
@@ -46,11 +46,67 @@ describe("Testes de Usuário", () => {
 
 
     // Nao printo o password por que ele é dinamico
-    const userResponse = await userService.createUser(userParam);
+    const userResponse = await userService.store(userParam);
 
-    expect(userResponse.statusCode).toBe(409);
+    expect(userResponse.statusCode).toBe(406);
     expect(userResponse.data).toBe('Usuário já cadastrado!');
   });
 
+  test('deverá remover um usuário', async () => {
+    const userParam = {
+      _id: "62b8df3b85371c1b1502e791",
+      name: 'Teste',
+      email: 'teste@mail.com',
+      telephone: '99999999',
+      password: '123456'
+    };
+
+    //Mockando o usuario
+    mockingoose(UserModel).toReturn(userParam, 'findOne');
+
+    // remover o usuário
+    const userResponse = await userService.destroy(userParam);
+
+    expect(userResponse.statusCode).toBe(200);
+    expect(userResponse.data).toBe('Usuário deletado com sucesso!');
+  });
+
+  test('deverá retornar mensagem de erro ao tentar remover um usuário que não existe na base', async () => {
+
+    const userParam = {
+      _id: "62b8df3b85371c1b1502e791",
+      name: 'Teste',
+      email: 'teste@mail.com',
+      telephone: '99999999',
+      password: '123456'
+    };
+
+    //Mockando o null
+    mockingoose(UserModel).toReturn(null, 'findOne');
+
+    // remover o usuário
+    const userResponse = await userService.destroy(userParam);
+
+    expect(userResponse.statusCode).toBe(400);
+    expect(userResponse.data).toBe('Usuário não cadastrado!');
+  });
+
+
+  test('deverá retornar os usuários cadastrados na base', async () => {
+    const userParam = {
+      _id: "62b8df3b85371c1b1502e791",
+      name: 'Teste',
+      email: 'teste@mail.com',
+      telephone: '99999999',
+      password: '123456'
+    }
+    //Mockando os usuarios
+    mockingoose(UserModel).toReturn(userParam, 'find');
+
+    // remover o usuário
+    const userResponse = await userService.index();
+
+    expect(userResponse.statusCode).toBe(200);
+  });
 });
 
