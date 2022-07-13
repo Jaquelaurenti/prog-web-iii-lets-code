@@ -93,6 +93,7 @@ const ask = async (telephone, startPlace, finishPlace) => {
 
     if (vehicle) {
       vehicle = await vehicleRepository.setVehicleBusy(vehicle);
+
     }
     else {
       vehicle = await vehicleRepository.createVehicleAutomatic();
